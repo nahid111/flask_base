@@ -4,15 +4,22 @@ import random, string
 #       default config
 # ================================
 class BaseConfig(object):
+    APP_HOST = '0.0.0.0'
+    APP_PORT = 5000
     DEBUG = False
     SECRET_KEY = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    
+    # Database credentials
     DB_HOST = 'localhost:3306'
     DB_NAME = 'db_base'
     DB_USERNAME = 'root'
     DB_PASSWORD = 'secretPassword'
+
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://rootpass:@localhost/flask_starter_app'
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://%s:%s@%s/%s" % (DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CSRF_ENABLED = True
+
     # Flask-Mail settings
     MAIL_SERVER = ''
     MAIL_PORT = 465
@@ -45,6 +52,7 @@ class TestConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
+    TESTING = False
 
 
 
